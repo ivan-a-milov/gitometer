@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">title</title>
+    <link rel="stylesheet" th:href="${styleRel}" />
+</head>
+<body>
+<h1 th:text="${title}">title</h1>
+<div>
+    <span th:each="crumb : ${breadcrumbs}">
+        <a th:href="${crumb.value}" th:text="${crumb.key}" class="breadcrumb"></a>
+    </span>
+</div>
+<div align="center">
+    <table>
+        <thead>
+        <tr>
+            <th class="row-name"></th>
+            <th>Commits</th>
+            <th>Lines added</th>
+            <th>Lines deleted</th>
+            <th>Lines modified</th>
+            <th>Total lines</th>
+            <th>Modification rate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${parentHref != null}">
+            <td class="row-name">
+                <a th:href="${parentHref}">..</a>
+            </td>
+            <td colspan="6"></td>
+        </tr>
+        <tr th:each="row : ${rows}">
+            <td class="row-name" th:unless="${row.detailsHref != ''}" th:text="${row.name}">filename</td>
+            <td class="row-name" th:if="${row.detailsHref != ''}">
+                <a th:href="${row.detailsHref}" th:text="${row.name}">dirname</a>
+            </td>
+            <td th:text="${row.stats.commits}">9999</td>
+            <td th:text="${row.stats.linesAdded}">8888</td>
+            <td th:text="${row.stats.linesDeleted}">7777</td>
+            <td th:text="${row.stats.linesModified}">16665</td>
+            <td th:text="${row.stats.totalLines}">6666</td>
+            <td th:text="${#numbers.formatDecimal(100 * row.stats.modificationRate, 1, 'DEFAULT', 2, 'DEFAULT') + '%'}">
+                146%
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Total</th>
+            <th th:text="${tree.stats.commits}">6666</th>
+            <th th:text="${tree.stats.linesAdded}">5555</th>
+            <th th:text="${tree.stats.linesDeleted}">4444</th>
+            <th th:text="${tree.stats.linesModified}">2222</th>
+            <th th:text="${tree.stats.totalLines}">3333</th>
+            <th></th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+</body>
+</html>
