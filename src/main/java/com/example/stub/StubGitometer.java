@@ -1,4 +1,9 @@
-package com.example;
+package com.example.stub;
+
+import com.example.Blob;
+import com.example.GitObjectStats;
+import com.example.Gitometer;
+import com.example.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
